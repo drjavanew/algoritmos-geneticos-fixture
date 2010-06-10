@@ -9,6 +9,11 @@ public class Team {
 		this.name = name;
 		this.popularity = popularity;
 	}
+	
+	public Team(Team team){
+		this.name = team.name;
+		this.popularity = team.popularity;
+	}
 
 	public String getName() {
 		return name;

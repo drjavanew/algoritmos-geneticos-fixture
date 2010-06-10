@@ -6,13 +6,24 @@ public class SoccerGame {
 
 	private Team teamVisitor;
 	private Team teamLocal;
-	private Date date;
 	private boolean classic;
 	
 	public SoccerGame(Team visitor, Team local, Date date){
-		this.date = date;
 		this.teamLocal = local;
 		this.teamVisitor = visitor;
+	}
+	
+	public SoccerGame(SoccerGame game, Boolean local){
+		if(local)
+		{
+			this.teamLocal = new Team(game.teamLocal);
+			this.teamVisitor = new Team(game.teamVisitor);
+		}
+		else
+		{
+			this.teamLocal = new Team(game.teamVisitor);
+			this.teamVisitor = new Team(game.teamLocal);			
+		}
 	}
 	
 	public Team getTeamVisitor() {
@@ -21,10 +32,6 @@ public class SoccerGame {
 
 	public Team getTeamLocal() {
 		return teamLocal;
-	}
-
-	public Date getDate() {
-		return date;
 	}
 	
 	public boolean isClassic(){
