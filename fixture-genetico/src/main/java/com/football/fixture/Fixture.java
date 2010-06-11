@@ -17,19 +17,23 @@ public class Fixture {
 	
 	public List<TournamentDay> GetDays()
 	{
-		List<TournamentDay> aux = new ArrayList<TournamentDay>();
-		for(int i = 0; i < teamGenesValues.size()/10; i++)
+		if(days.isEmpty())
 		{
-			TournamentDay aDay = new TournamentDay(teamGenesValues.subList(i*10, (i+1)*10), localGenesValues.subList(i*10, (i+1)*10), teams);
-			aux.add(aDay);
+			for(int i = 0; i < teamGenesValues.size()/10; i++)
+			{
+				TournamentDay aDay = new TournamentDay(teamGenesValues.subList(i*10, (i+1)*10), localGenesValues.subList(i*10, (i+1)*10), teams);
+				days.add(aDay);
+			}
 		}
-		return aux;
+		return days;
 	}
 	
 	public int GetAptitude()
 	{
-		/*List<TournamentDay> days = fixture.GetDays();
-		Iterator<TournamentDay> it = days.iterator();
+		this.GetDays();
+		if(!this.IsValid())
+			return 0;
+		/*Iterator<TournamentDay> it = days.iterator();
 		while(it.hasNext())
 		{
 			for(SoccerGame game : it.next().GetGames())
@@ -41,6 +45,21 @@ public class Fixture {
 			}
 		}*/
 		return 1;
+	}
+	
+	private boolean IsValid()
+	{
+		return true;
+		//Me fijo si dos o mas fechas tienen los mismos genes
+		/*List<List<Integer>> subLists = new ArrayList<List<Integer>>(teamGenesValues);
+		List<Integer> subIndex =new ArrayList<Integer>();
+		for(int i = 0; i < 10; i++)
+			for(int j=10; j<190; j+=10)
+			if(copyOfTeamGenesValues.get(i)==copyOfTeamGenesValues.get(j))
+			{
+				subIndex.add(i);
+				subIndex.add(j);			
+			}*/
 	}
 	
 }
