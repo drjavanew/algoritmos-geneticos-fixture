@@ -91,9 +91,9 @@ public class SoccerGame {
 		}
 
 		if ((teamLocal.equals(other.teamLocal) || teamLocal
-				.equals(other.teamVisitor)
+				.equals(other.teamVisitor))
 				&& (teamVisitor.equals(other.teamLocal) || teamVisitor
-						.equals(other.teamVisitor))))
+						.equals(other.teamVisitor)))
 			return true;
 
 		return false;
