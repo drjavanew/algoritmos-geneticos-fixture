@@ -30,7 +30,7 @@ public class TournamentDay {
 			{
 				Team local = new Team(copyOfTeams.get(0));
 				Team visitor = new Team(copyOfTeams.get(1));
-				SoccerGame game = new SoccerGame(visitor, local, new Date());
+				SoccerGame game = new SoccerGame(visitor, local);
 				allGamesCombinations.add(game);
 				Team aTeam = new Team(copyOfTeams.get(1));
 				copyOfTeams.remove(1);

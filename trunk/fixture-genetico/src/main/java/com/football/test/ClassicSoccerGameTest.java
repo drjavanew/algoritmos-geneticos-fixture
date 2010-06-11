@@ -20,9 +20,9 @@ public class ClassicSoccerGameTest {
 	public void isClassic() {
 		System.out.println("**********isClassic");
 		SoccerGame game1 = new SoccerGame(new Team("BOCA", true), new Team(
-				"RIVER_PLATE", true), Calendar.getInstance().getTime());
+				"RIVER_PLATE", true));
 		SoccerGame game2 = new SoccerGame(new Team("SAN_LORENZO", true),
-				new Team("BANFIELD", true), Calendar.getInstance().getTime());
+				new Team("BANFIELD", true));
 		System.out.println("true - " + game1.isClassic());
 		System.out.println("false - " + game2.isClassic());
 	}
@@ -30,13 +30,13 @@ public class ClassicSoccerGameTest {
 	public void getClassicCountPerTournamentDay() {
 		System.out.println("**********getClassicCountPerTournamentDay");
 		SoccerGame game1 = new SoccerGame(new Team("BOCA", true), new Team(
-				"RIVER_PLATE", true), Calendar.getInstance().getTime());
+				"RIVER_PLATE", true));
 		SoccerGame game2 = new SoccerGame(new Team("SAN_LORENZO", true),
-				new Team("BANFIELD", true), Calendar.getInstance().getTime());		
+				new Team("BANFIELD", true));		
 		SoccerGame game3 = new SoccerGame(new Team("SAN_LORENZO", true),
-				new Team("HURACAN", true), Calendar.getInstance().getTime());
+				new Team("HURACAN", true));
 		SoccerGame game4 = new SoccerGame(new Team("ARGENTINOS_JRS", true),
-				new Team("HURACAN", true), Calendar.getInstance().getTime());
+				new Team("HURACAN", true));
 		
 		List<SoccerGame> games = new ArrayList<SoccerGame>();		
 		games.add(game1);

@@ -24,7 +24,7 @@ import org.jgap.impl.IntegerGene;
 public class GenerateGames 
 {
 
-	private static int MAX_ALLOWED_EVOLUTIONS = 100;
+	private static int MAX_ALLOWED_EVOLUTIONS = 500;
 	
 	private static List<Team> teams;
 	
@@ -41,7 +41,7 @@ public class GenerateGames
 		teams.add(new Team("NO_BOYS", false));
 		teams.add(new Team("LANUS", false));
 		teams.add(new Team("RACING", false));
-		teams.add(new Team("VELEZ", false));
+		/*teams.add(new Team("VELEZ", false));
 		teams.add(new Team("HURACAN", false));
 		teams.add(new Team("TIGRE", false));
 		teams.add(new Team("GIMNASIA_ESGRIMA_LP", false));
@@ -52,7 +52,7 @@ public class GenerateGames
 		teams.add(new Team("ALL_BOYS", false));
 		teams.add(new Team("QUILMES", false));
 		teams.add(new Team("OLIMPO", false));
-		teams.add(new Team("ARSENAL", false));
+		teams.add(new Team("ARSENAL", false));*/
 		tournament = Tournament.GetInstance(teams);
 	}
 	/*Este main es para probar pasarle valores a los genes y ver como arma el fixture*/
@@ -126,24 +126,24 @@ public class GenerateGames
 			FitnessFunction myFunc = new FixtureFitnessFunction();
 			conf.setFitnessFunction(myFunc);
 			//Cantidad de genes: 10 partidos x fechas => 190 genes
-			Gene[] sampleGenes = new Gene[380];
-			for (int i=0;i<19;i++)
+			Gene[] sampleGenes = new Gene[56];
+			for (int i=0;i<teams.size()-1;i++)
 			{
 				//Partido 1: debo pasar un valor entre 0 y 189
-				sampleGenes[i*20] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+1] = new IntegerGene(conf, 0, 189);
+				sampleGenes[i*teams.size()] = new IntegerGene(conf, 0, 1);
+				sampleGenes[(i*teams.size())+1] = new IntegerGene(conf, 0, 27);
 				//Partido 2: debo pasar un valor entre 0 y 152
-				sampleGenes[i*20+2] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+3] = new IntegerGene(conf, 0, 152);
+				sampleGenes[(i*teams.size())+2] = new IntegerGene(conf, 0, 1);
+				sampleGenes[(i*teams.size())+3] = new IntegerGene(conf, 0, 14);
 				//Partido 3: debo pasar un valor entre 0 y 119
-				sampleGenes[i*20+4] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+5] = new IntegerGene(conf, 0, 119);
+				sampleGenes[(i*teams.size())+4] = new IntegerGene(conf, 0, 1);
+				sampleGenes[(i*teams.size())+5] = new IntegerGene(conf, 0, 5);
 				//Partido 4: debo pasar un valor entre 0 y 90
-				sampleGenes[i*20+6] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+7] = new IntegerGene(conf, 0, 90);
+				sampleGenes[(i*teams.size())+6] = new IntegerGene(conf, 0, 1);
+				sampleGenes[(i*teams.size())+7] = new IntegerGene(conf, 0, 0);
 				//Partido 5: debo pasar un valor entre 0 y 65
-				sampleGenes[i*20+8] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+9] = new IntegerGene(conf, 0, 65);
+				/*sampleGenes[(i*teams.size())+8] = new IntegerGene(conf, 0, 1);
+				sampleGenes[(i*teams.size())+9] = new IntegerGene(conf, 0, 0);
 				//Partido 6: debo pasar un valor entre 0 y 44
 				sampleGenes[i*20+10] = new IntegerGene(conf, 0, 1);
 				sampleGenes[i*20+11] = new IntegerGene(conf, 0, 44);
@@ -158,11 +158,11 @@ public class GenerateGames
 				sampleGenes[i*20+17] = new IntegerGene(conf, 0, 5);
 				//Partido 10: solo queda un partido posible
 				sampleGenes[i*20+18] = new IntegerGene(conf, 0, 1);
-				sampleGenes[i*20+19] = new IntegerGene(conf, 0, 0);
+				sampleGenes[i*20+19] = new IntegerGene(conf, 0, 0);*/
 			}
 			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
 			conf.setSampleChromosome( sampleChromosome );
-			conf.setPopulationSize( 100 );
+			conf.setPopulationSize( 500 );
 			Genotype population = Genotype.randomInitialGenotype( conf );
 			for( int i = 0; i < MAX_ALLOWED_EVOLUTIONS; i++ )
 			{
