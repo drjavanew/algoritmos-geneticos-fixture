@@ -33,26 +33,26 @@ public class GenerateGames
 	private static void Init()
 	{
 		teams = new ArrayList<Team>();
-		teams.add(new Team("ARGENTINOS_JRS", 10));
-		teams.add(new Team("ESTUDIANTES_LP", 10));
-		teams.add(new Team("GODOY_CRUZ", 10));
-		teams.add(new Team("INDEPENDIENTE", 10));
-		teams.add(new Team("BANFIELD", 10));
-		teams.add(new Team("NO_BOYS", 10));
-		teams.add(new Team("LANUS", 10));
-		teams.add(new Team("RACING", 10));
-		teams.add(new Team("VELEZ", 10));
-		teams.add(new Team("HURACAN", 10));
-		teams.add(new Team("TIGRE", 10));
-		teams.add(new Team("GIMNASIA_ESGRIMA_LP", 10));
-		teams.add(new Team("RIVER_PLATE", 10));
-		teams.add(new Team("COLON", 10));
-		teams.add(new Team("SAN_LORENZO", 10));
-		teams.add(new Team("BOCA", 10));
-		teams.add(new Team("ALL_BOYS", 10));
-		teams.add(new Team("QUILMES", 10));
-		teams.add(new Team("OLIMPO", 10));
-		teams.add(new Team("ARSENAL", 10));
+		teams.add(new Team("ARGENTINOS_JRS", false));
+		teams.add(new Team("ESTUDIANTES_LP", false));
+		teams.add(new Team("GODOY_CRUZ", false));
+		teams.add(new Team("INDEPENDIENTE", true));
+		teams.add(new Team("BANFIELD", false));
+		teams.add(new Team("NO_BOYS", false));
+		teams.add(new Team("LANUS", false));
+		teams.add(new Team("RACING", false));
+		teams.add(new Team("VELEZ", false));
+		teams.add(new Team("HURACAN", false));
+		teams.add(new Team("TIGRE", false));
+		teams.add(new Team("GIMNASIA_ESGRIMA_LP", false));
+		teams.add(new Team("RIVER_PLATE", true));
+		teams.add(new Team("COLON", false));
+		teams.add(new Team("SAN_LORENZO", true));
+		teams.add(new Team("BOCA", true));
+		teams.add(new Team("ALL_BOYS", false));
+		teams.add(new Team("QUILMES", false));
+		teams.add(new Team("OLIMPO", false));
+		teams.add(new Team("ARSENAL", false));
 		tournament = Tournament.GetInstance(teams);
 	}
 	/*Este main es para probar pasarle valores a los genes y ver como arma el fixture*/
