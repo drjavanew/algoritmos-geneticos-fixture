@@ -37,7 +37,7 @@ public class GenerateGames
 		teams.add(new Team("ESTUDIANTES_LP", false));
 		teams.add(new Team("GODOY_CRUZ", false));
 		teams.add(new Team("INDEPENDIENTE", true));
-		teams.add(new Team("BANFIELD", false));
+		/*teams.add(new Team("BANFIELD", false));
 		teams.add(new Team("NO_BOYS", false));
 		teams.add(new Team("LANUS", false));
 		teams.add(new Team("RACING", false));
@@ -52,26 +52,26 @@ public class GenerateGames
 		teams.add(new Team("ALL_BOYS", false));
 		teams.add(new Team("QUILMES", false));
 		teams.add(new Team("OLIMPO", false));
-		teams.add(new Team("ARSENAL", false));
+		teams.add(new Team("ARSENAL", false));*/
 		tournament = Tournament.GetInstance(teams);
 	}
 	/*Este main es para probar pasarle valores a los genes y ver como arma el fixture*/
-	/*public static void main(String[] args)
+	public static void main(String[] args)
 	{
 		Init();
 		List<Integer> gamesGenes = new ArrayList<Integer>();
 		List<Boolean> localGenes = new ArrayList<Boolean>();
 		Date now = new Date();
 		Random rnd = new Random(now.getTime());
-		for(int i=0;i<19;i++)
+		for(int i=0;i<teams.size()-1;i++)
 		{
-			//Partido 1: debo pasar un valor entre 0 y 189
+			//Partido 1: debo pasar un valor entre 0 y 190
 			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(190));
+			gamesGenes.add(rnd.nextInt(6));
 			//Partido 2: debo pasar un valor entre 0 y 152
 			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(153));
-			//Partido 3: debo pasar un valor entre 0 y 119
+			gamesGenes.add(0);
+			/*//Partido 3: debo pasar un valor entre 0 y 119
 			localGenes.add(rnd.nextInt(1)==0);
 			gamesGenes.add(rnd.nextInt(120));
 			//Partido 4: debo pasar un valor entre 0 y 90
@@ -94,7 +94,7 @@ public class GenerateGames
 			gamesGenes.add(rnd.nextInt(6));
 			//Partido 10: solo queda un partido posible
 			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(0);
+			gamesGenes.add(0);*/
 		}
 		Fixture fixture = tournament.GetFixture(gamesGenes, localGenes);
 		List<TournamentDay> days = fixture.GetDays();
@@ -111,8 +111,8 @@ public class GenerateGames
 				System.out.println(local.getName() + " vs " + visitor.getName());
 			}
 		}
-	}*/
-	public static void main(String[] args)
+	}
+	/*public static void main(String[] args)
 	{
 		try
 		{
@@ -199,5 +199,5 @@ public class GenerateGames
 		{
 			System.out.println(ex.getMessage());
 		}
-	}
+	}*/
 }
