@@ -1,31 +1,46 @@
 package main.java.com.football.fixture;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class SoccerGame {
 
 	private Team teamVisitor;
 	private Team teamLocal;
 	private boolean classic;
-	
-	public SoccerGame(Team visitor, Team local, Date date){
+	private static List<SoccerGame> classicSoccerGames;
+
+	static {
+		classicSoccerGames = new ArrayList<SoccerGame>();
+		classicSoccerGames.add(new SoccerGame(new Team("INDEPENDIENTE", true), new Team(
+				"RACING", true), Calendar.getInstance().getTime()));
+		classicSoccerGames.add(new SoccerGame(new Team("ESTUDIANTES_LP", true), new Team(
+				"GIMNASIA_ESGRIMA_LP", true), Calendar.getInstance().getTime()));
+		classicSoccerGames.add(new SoccerGame(new Team("SAN_LORENZO", true), new Team(
+				"HURACAN", true), Calendar.getInstance().getTime()));
+		classicSoccerGames.add(new SoccerGame(new Team("BOCA", true), new Team(
+				"RIVER_PLATE", true), Calendar.getInstance().getTime()));
+		classicSoccerGames.add(new SoccerGame(new Team("BANFIELD", true), new Team(
+				"LANUS", true), Calendar.getInstance().getTime()));
+	}
+
+	public SoccerGame(Team visitor, Team local, Date date) {
 		this.teamLocal = local;
 		this.teamVisitor = visitor;
 	}
-	
-	public SoccerGame(SoccerGame game, Boolean local){
-		if(local)
-		{
+
+	public SoccerGame(SoccerGame game, Boolean local) {
+		if (local) {
 			this.teamLocal = new Team(game.teamLocal);
 			this.teamVisitor = new Team(game.teamVisitor);
-		}
-		else
-		{
+		} else {
 			this.teamLocal = new Team(game.teamVisitor);
-			this.teamVisitor = new Team(game.teamLocal);			
+			this.teamVisitor = new Team(game.teamLocal);
 		}
 	}
-	
+
 	public Team getTeamVisitor() {
 		return teamVisitor;
 	}
@@ -33,12 +48,16 @@ public class SoccerGame {
 	public Team getTeamLocal() {
 		return teamLocal;
 	}
-	
-	public boolean isClassic(){
-		return this.classic;
+
+	public boolean isClassic() {
+		for (SoccerGame game : classicSoccerGames) {
+			if (this.equals(game))
+				return true;
+		}
+		return false;		
 	}
-	
-	public void setClassic(boolean classic){
+
+	public void setClassic(boolean classic) {
 		this.classic = classic;
 	}
 
@@ -70,14 +89,14 @@ public class SoccerGame {
 			if (other.teamVisitor != null)
 				return false;
 		}
-		
-		if ((teamLocal.equals(other.teamLocal) || teamLocal.equals(other.teamVisitor)
-				&& (teamVisitor.equals(other.teamLocal) || teamVisitor.equals(other.teamVisitor))))
+
+		if ((teamLocal.equals(other.teamLocal) || teamLocal
+				.equals(other.teamVisitor)
+				&& (teamVisitor.equals(other.teamLocal) || teamVisitor
+						.equals(other.teamVisitor))))
 			return true;
-		
+
 		return false;
 	}
-	
-	
 
 }

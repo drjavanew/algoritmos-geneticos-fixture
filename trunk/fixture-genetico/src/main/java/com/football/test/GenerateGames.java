@@ -1,7 +1,15 @@
 package main.java.com.football.test;
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import main.java.com.football.fixture.Fixture;
+import main.java.com.football.fixture.SoccerGame;
+import main.java.com.football.fixture.Team;
+import main.java.com.football.fixture.Tournament;
+import main.java.com.football.fixture.TournamentDay;
+import main.java.com.football.generic.algorithm.FixtureFitnessFunction;
 
 import org.jgap.Chromosome;
 import org.jgap.Configuration;
@@ -10,16 +18,8 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.impl.BooleanGene;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
-
-import main.java.com.football.fixture.Fixture;
-import main.java.com.football.fixture.SoccerGame;
-import main.java.com.football.fixture.Team;
-import main.java.com.football.fixture.Tournament;
-import main.java.com.football.fixture.TournamentDay;
-import main.java.com.football.generic.algorithm.*;
 
 public class GenerateGames 
 {
@@ -37,7 +37,7 @@ public class GenerateGames
 		teams.add(new Team("ESTUDIANTES_LP", false));
 		teams.add(new Team("GODOY_CRUZ", false));
 		teams.add(new Team("INDEPENDIENTE", true));
-		/*teams.add(new Team("BANFIELD", false));
+		teams.add(new Team("BANFIELD", false));
 		teams.add(new Team("NO_BOYS", false));
 		teams.add(new Team("LANUS", false));
 		teams.add(new Team("RACING", false));
@@ -52,67 +52,69 @@ public class GenerateGames
 		teams.add(new Team("ALL_BOYS", false));
 		teams.add(new Team("QUILMES", false));
 		teams.add(new Team("OLIMPO", false));
-		teams.add(new Team("ARSENAL", false));*/
+		teams.add(new Team("ARSENAL", false));
 		tournament = Tournament.GetInstance(teams);
 	}
 	/*Este main es para probar pasarle valores a los genes y ver como arma el fixture*/
+//	public static void main(String[] args)
+//	{
+//		Init();
+//		List<Integer> gamesGenes = new ArrayList<Integer>();
+//		List<Boolean> localGenes = new ArrayList<Boolean>();
+//		Date now = new Date();
+//		Random rnd = new Random(now.getTime());
+//		for(int i=0;i<teams.size()-1;i++)
+//		{
+//			//Partido 1: debo pasar un valor entre 0 y 190
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(6));
+//			//Partido 2: debo pasar un valor entre 0 y 152
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(0);
+//			/*//Partido 3: debo pasar un valor entre 0 y 119
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(120));
+//			//Partido 4: debo pasar un valor entre 0 y 90
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(91));
+//			//Partido 5: debo pasar un valor entre 0 y 65
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(66));
+//			//Partido 6: debo pasar un valor entre 0 y 44
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(45));
+//			//Partido 7: debo pasar un valor entre 0 y 27
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(28));
+//			//Partido 8: debo pasar un valor entre 0 y 14
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(15));
+//			//Partido 9: debo pasar un valor entre 0 y 5
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(rnd.nextInt(6));
+//			//Partido 10: solo queda un partido posible
+//			localGenes.add(rnd.nextInt(1)==0);
+//			gamesGenes.add(0);*/
+//		}
+//		Fixture fixture = tournament.GetFixture(gamesGenes, localGenes);
+//		List<TournamentDay> days = fixture.GetDays();
+//		Iterator<TournamentDay> it = days.iterator();
+//		int i = 0;
+//		while(it.hasNext())
+//		{
+//			i++;
+//			System.out.println("Fecha " + i + ":");
+//			for(SoccerGame game : it.next().GetGames())
+//			{
+//				Team local = game.getTeamLocal();
+//				Team visitor = game.getTeamVisitor();
+//				System.out.println(local.getName() + " vs " + visitor.getName());
+//			}
+//		}
+//	}
+	
+	
 	public static void main(String[] args)
-	{
-		Init();
-		List<Integer> gamesGenes = new ArrayList<Integer>();
-		List<Boolean> localGenes = new ArrayList<Boolean>();
-		Date now = new Date();
-		Random rnd = new Random(now.getTime());
-		for(int i=0;i<teams.size()-1;i++)
-		{
-			//Partido 1: debo pasar un valor entre 0 y 190
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(6));
-			//Partido 2: debo pasar un valor entre 0 y 152
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(0);
-			/*//Partido 3: debo pasar un valor entre 0 y 119
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(120));
-			//Partido 4: debo pasar un valor entre 0 y 90
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(91));
-			//Partido 5: debo pasar un valor entre 0 y 65
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(66));
-			//Partido 6: debo pasar un valor entre 0 y 44
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(45));
-			//Partido 7: debo pasar un valor entre 0 y 27
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(28));
-			//Partido 8: debo pasar un valor entre 0 y 14
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(15));
-			//Partido 9: debo pasar un valor entre 0 y 5
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(rnd.nextInt(6));
-			//Partido 10: solo queda un partido posible
-			localGenes.add(rnd.nextInt(1)==0);
-			gamesGenes.add(0);*/
-		}
-		Fixture fixture = tournament.GetFixture(gamesGenes, localGenes);
-		List<TournamentDay> days = fixture.GetDays();
-		Iterator<TournamentDay> it = days.iterator();
-		int i = 0;
-		while(it.hasNext())
-		{
-			i++;
-			System.out.println("Fecha " + i + ":");
-			for(SoccerGame game : it.next().GetGames())
-			{
-				Team local = game.getTeamLocal();
-				Team visitor = game.getTeamVisitor();
-				System.out.println(local.getName() + " vs " + visitor.getName());
-			}
-		}
-	}
-	/*public static void main(String[] args)
 	{
 		try
 		{
@@ -190,6 +192,9 @@ public class GenerateGames
 					System.out.println(local.getName() + " vs " + visitor.getName());
 				}
 			}
+			
+			System.out.println("tournamentDayHasMoreThanOneClassic - " + fixture.tournamentDayHasMoreThanOneClassic());
+			System.out.println("hasRepeatedGames - " + fixture.hasRepeatedGames());
 		}
 		catch(InvalidConfigurationException ex)
 		{
@@ -199,5 +204,5 @@ public class GenerateGames
 		{
 			System.out.println(ex.getMessage());
 		}
-	}*/
+	}
 }
