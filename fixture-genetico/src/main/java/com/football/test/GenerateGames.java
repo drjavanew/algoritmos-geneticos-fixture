@@ -18,13 +18,15 @@ import org.jgap.Gene;
 import org.jgap.Genotype;
 import org.jgap.IChromosome;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.impl.CrossoverOperator;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
+import org.jgap.impl.MutationOperator;
 
 public class GenerateGames 
 {
 
-	private static int MAX_ALLOWED_EVOLUTIONS = 500;
+	private static int MAX_ALLOWED_EVOLUTIONS = 200;
 	
 	private static List<Team> teams;
 	
@@ -162,7 +164,15 @@ public class GenerateGames
 			}
 			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
 			conf.setSampleChromosome( sampleChromosome );
-			conf.setPopulationSize( 500 );
+			conf.setPreservFittestIndividual(true);
+			CrossoverOperator crossoverOperator = new CrossoverOperator(conf,20,true);
+			MutationOperator mutationOperator = new MutationOperator(conf,25);//1/50 gene mutation rate
+			conf.addGeneticOperator(crossoverOperator);
+			conf.addGeneticOperator(mutationOperator);
+			conf.setAlwaysCaculateFitness(true);
+			conf.setMinimumPopSizePercent(90);
+			conf.setPopulationSize(500);
+			
 			Genotype population = Genotype.randomInitialGenotype( conf );
 			for( int i = 0; i < MAX_ALLOWED_EVOLUTIONS; i++ )
 			{

@@ -30,6 +30,22 @@ public class Fixture {
 		return days;
 	}
 
+	public int getCountRepeatedGames() {
+		TournamentDay tournamentDay = null;
+		int count = 0;
+		for (int i = 0; i < days.size(); i++) {
+			tournamentDay = days.get(i);
+			List<SoccerGame> games = tournamentDay.GetGames();
+			for (SoccerGame game : games) {
+				for (int j = i + 1; j < days.size(); j++) {
+					if (days.get(j).hasGame(game))
+						count++;
+				}
+			}
+		}
+		return count;
+	}
+	
 	public boolean tournamentDayHasMoreThanOneClassic() {
 		for (TournamentDay day : days) {
 			if (day.getClassicCount() > 1)
@@ -37,7 +53,7 @@ public class Fixture {
 		}
 		return false;
 	}
-
+	
 	public boolean hasRepeatedGames() {
 		TournamentDay tournamentDay = null;
 		for (int i = 0; i < days.size(); i++) {
@@ -45,8 +61,9 @@ public class Fixture {
 			List<SoccerGame> games = tournamentDay.GetGames();
 			for (SoccerGame game : games) {
 				for (int j = i + 1; j < days.size(); j++) {
-					if (days.get(j).hasGame(game))
+					if (days.get(j).hasGame(game)){
 						return true;
+					}
 				}
 			}
 		}
@@ -58,8 +75,10 @@ public class Fixture {
 		int aptitude = 0;
 		//Si tiene partidos repetidos directamente queda descartado y no tienen sentido las demas condiciones
 		if(hasRepeatedGames())
-			return 0;
-		aptitude += tournamentDayHasMoreThanOneClassic() ? 0 : 5;
+			aptitude += 84 - getCountRepeatedGames();
+		else{
+			aptitude += tournamentDayHasMoreThanOneClassic() ? 0 : 5;
+		}
 
 		return aptitude;
 	}
