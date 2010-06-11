@@ -19,9 +19,10 @@ public class Fixture {
 	{
 		if(days.isEmpty())
 		{
-			for(int i = 0; i < teamGenesValues.size()/10; i++)
+			int size = teams.size();
+			for(int i = 0; i < teamGenesValues.size()/(size/2); i++)
 			{
-				TournamentDay aDay = new TournamentDay(teamGenesValues.subList(i*10, (i+1)*10), localGenesValues.subList(i*10, (i+1)*10), teams);
+				TournamentDay aDay = new TournamentDay(teamGenesValues.subList(i*(size/2), (i+1)*(size/2)), localGenesValues.subList(i*(size/2), (i+1)*(size/2)), teams);
 				days.add(aDay);
 			}
 		}
