@@ -59,8 +59,9 @@ public class TestGameEqual {
 		games.add(game2);
 		games.add(game3);
 		
-		TournamentDay.setGames(games);
+		
 		TournamentDay tournamentDay = new TournamentDay(null, null, null);
+		tournamentDay.setGames(games);
 		
 		SoccerGame existGame = new SoccerGame(new Team("River", true), new Team(
 				"Racing", true), Calendar.getInstance().getTime());
