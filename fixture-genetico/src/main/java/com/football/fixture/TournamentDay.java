@@ -72,4 +72,19 @@ public class TournamentDay {
 		}
 		return aux;
 	}
+	
+	public boolean hasGame(SoccerGame game) {
+		for (SoccerGame g : games) {
+			if (g.equals(game))
+				return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Esto se usa para probar el hasGame
+	 */
+	public static void setGames(List<SoccerGame> games) {
+		TournamentDay.games = games;
+	}	
 }

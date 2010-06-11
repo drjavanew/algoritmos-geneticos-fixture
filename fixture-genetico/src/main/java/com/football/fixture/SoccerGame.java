@@ -42,4 +42,42 @@ public class SoccerGame {
 		this.classic = classic;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((teamLocal == null) ? 0 : teamLocal.hashCode());
+		result = prime * result
+				+ ((teamVisitor == null) ? 0 : teamVisitor.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final SoccerGame other = (SoccerGame) obj;
+		if (teamLocal == null) {
+			if (other.teamLocal != null)
+				return false;
+		}
+		if (teamVisitor == null) {
+			if (other.teamVisitor != null)
+				return false;
+		}
+		
+		if ((teamLocal.equals(other.teamLocal) || teamLocal.equals(other.teamVisitor)
+				&& (teamVisitor.equals(other.teamLocal) || teamVisitor.equals(other.teamVisitor))))
+			return true;
+		
+		return false;
+	}
+	
+	
+
 }

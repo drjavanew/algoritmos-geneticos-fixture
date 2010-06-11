@@ -28,6 +28,21 @@ public class Fixture {
 		return days;
 	}
 	
+	public boolean hasRepeatedGames() {
+		TournamentDay tournamentDay = null;
+		for (int i = 0; i < days.size(); i++) {
+			tournamentDay = days.get(i);
+			List<SoccerGame> games = tournamentDay.GetGames();
+			for (SoccerGame game : games) {
+				for (int j = i + 1; j < days.size(); j++) {
+					if (days.get(j).hasGame(game))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public int GetAptitude()
 	{
 		this.GetDays();
