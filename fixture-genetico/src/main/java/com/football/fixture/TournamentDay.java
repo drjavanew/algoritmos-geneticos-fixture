@@ -76,6 +76,17 @@ public class TournamentDay {
 		return games;
 	}
 	
+	/*
+	 * Devuelve al cantidad de clasicos que tiene la fecha
+	 */
+	public int getClassicCount() {
+		int cont = 0;
+		for (SoccerGame g : GetGames()) {
+			cont += g.isClassic() ? 1 : 0;
+		}
+		return cont;		
+	}
+	
 	public boolean hasGame(SoccerGame game) {
 		for (SoccerGame g : GetGames()) {
 			if (g.equals(game))
