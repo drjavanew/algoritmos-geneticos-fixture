@@ -54,41 +54,14 @@ public class Fixture {
 	}
 
 	public int GetAptitude() {
-		// this.GetDays();
-		// if(!this.IsValid())
-		// return 0;
-		// /*Iterator<TournamentDay> it = days.iterator();
-		// while(it.hasNext())
-		// {
-		// for(SoccerGame game : it.next().GetGames())
-		// {
-		// Team local = game.getTeamLocal();
-		// Team visitor = game.getTeamVisitor();
-		// //Hacer algo!!!!
-		// //Lo 1ero que hay q ver es si el fixture es válido (si no se repiten
-		// partidos)
-		// }
-		// }*/
-		// return 1;
-
 		this.GetDays();
 		int aptitude = 0;
-		aptitude += hasRepeatedGames() ? 0 : 10;
+		//Si tiene partidos repetidos directamente queda descartado y no tienen sentido las demas condiciones
+		if(hasRepeatedGames())
+			return 0;
 		aptitude += tournamentDayHasMoreThanOneClassic() ? 0 : 5;
 
 		return aptitude;
-	}
-
-	private boolean IsValid() {
-		return true;
-		// Me fijo si dos o mas fechas tienen los mismos genes
-		/*
-		 * List<List<Integer>> subLists = new ArrayList<List<Integer>>(teamGenesValues);
-		 * List<Integer> subIndex =new ArrayList<Integer>(); for(int i = 0; i <
-		 * 10; i++) for(int j=10; j<190; j+=10)
-		 * if(copyOfTeamGenesValues.get(i)==copyOfTeamGenesValues.get(j)) {
-		 * subIndex.add(i); subIndex.add(j); }
-		 */
 	}
 
 }

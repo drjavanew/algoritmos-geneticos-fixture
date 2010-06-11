@@ -15,18 +15,18 @@ public class SoccerGame {
 	static {
 		classicSoccerGames = new ArrayList<SoccerGame>();
 		classicSoccerGames.add(new SoccerGame(new Team("INDEPENDIENTE", true), new Team(
-				"RACING", true), Calendar.getInstance().getTime()));
+				"RACING", true)));
 		classicSoccerGames.add(new SoccerGame(new Team("ESTUDIANTES_LP", true), new Team(
-				"GIMNASIA_ESGRIMA_LP", true), Calendar.getInstance().getTime()));
+				"GIMNASIA_ESGRIMA_LP", true)));
 		classicSoccerGames.add(new SoccerGame(new Team("SAN_LORENZO", true), new Team(
-				"HURACAN", true), Calendar.getInstance().getTime()));
+				"HURACAN", true)));
 		classicSoccerGames.add(new SoccerGame(new Team("BOCA", true), new Team(
-				"RIVER_PLATE", true), Calendar.getInstance().getTime()));
+				"RIVER_PLATE", true)));
 		classicSoccerGames.add(new SoccerGame(new Team("BANFIELD", true), new Team(
-				"LANUS", true), Calendar.getInstance().getTime()));
+				"LANUS", true)));
 	}
 
-	public SoccerGame(Team visitor, Team local, Date date) {
+	public SoccerGame(Team visitor, Team local) {
 		this.teamLocal = local;
 		this.teamVisitor = visitor;
 	}

@@ -31,13 +31,13 @@ public class TestGameEqual {
 	private void testGame() {
 		System.out.println("**********testGame");
 		SoccerGame game1 = new SoccerGame(new Team("Boca", true), new Team(
-				"River", true), Calendar.getInstance().getTime());
+				"River", true));
 		
 		SoccerGame game2 = new SoccerGame(new Team("River", true), new Team(
-				"Boca", true), Calendar.getInstance().getTime());
+				"Boca", true));
 		
 		SoccerGame game3 = new SoccerGame(new Team("River", true), new Team(
-				"Racing", true), Calendar.getInstance().getTime());
+				"Racing", true));
 		
 		System.out.println("game1 = game2 - " + game1.equals(game2));
 		System.out.println("game2 = game3 - " + game2.equals(game3));
@@ -45,29 +45,28 @@ public class TestGameEqual {
 	
 	private void tournamentHasGame() {
 		System.out.println("**********tournamentHasGame");
-		SoccerGame game1 = new SoccerGame(new Team("Boca", true), new Team(
-				"River", true), Calendar.getInstance().getTime());
-		
-		SoccerGame game2 = new SoccerGame(new Team("Estudiantes", true), new Team(
-				"Boca", true), Calendar.getInstance().getTime());
-		
-		SoccerGame game3 = new SoccerGame(new Team("River", true), new Team(
-				"Racing", true), Calendar.getInstance().getTime());
-		
+		Team boca = new Team("Boca", true);
+		Team river = new Team("River", true);
+		Team estudiantes = new Team("Estudiantes", true);
+		Team racing = new Team("Racing", true);
+		List<Team> teams =new ArrayList<Team>();
+		teams.add(boca);
+		teams.add(river);
+		teams.add(estudiantes);
+		teams.add(racing);
+		SoccerGame game1 = new SoccerGame(boca, river);
+		SoccerGame game2 = new SoccerGame(estudiantes, boca);
+		SoccerGame game3 = new SoccerGame(river, racing);
 		List<SoccerGame> games = new ArrayList<SoccerGame>();
 		games.add(game1);
 		games.add(game2);
 		games.add(game3);
-		
-		
-		TournamentDay tournamentDay = new TournamentDay(null, null, null);
+		TournamentDay tournamentDay = new TournamentDay(null, null, teams);
 		tournamentDay.setGames(games);
 		
-		SoccerGame existGame = new SoccerGame(new Team("River", true), new Team(
-				"Racing", true), Calendar.getInstance().getTime());
+		SoccerGame existGame = new SoccerGame(river, racing);
 		
-		SoccerGame notExistGame = new SoccerGame(new Team("River", true), new Team(
-				"Estudiantes", true), Calendar.getInstance().getTime());
+		SoccerGame notExistGame = new SoccerGame(river, estudiantes);
 		
 		
 		System.out.println("true - " + tournamentDay.hasGame(existGame));
