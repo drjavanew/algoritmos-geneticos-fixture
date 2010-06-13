@@ -1,7 +1,6 @@
 package main.java.com.football.test;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import main.java.com.football.fixture.SoccerGame;
@@ -43,7 +42,7 @@ public class ClassicSoccerGameTest {
 		games.add(game2);
 		games.add(game3);
 
-		TournamentDay tournamentDay = new TournamentDay(null, null, null);
+		TournamentDay tournamentDay = new TournamentDay(null, null, new ArrayList<Team>());
 		tournamentDay.setGames(games);
 		
 		System.out.println("2 - " + tournamentDay.getClassicCount());
