@@ -2,7 +2,6 @@ package main.java.com.football.fixture;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TournamentDay {
@@ -74,6 +73,19 @@ public class TournamentDay {
 			}
 		}
 		return games;
+	}
+	
+	/*
+	 * Devuelve true si el equipo juega de local en la fecha
+	 */
+	public boolean isLocal(Team team) {
+		for (SoccerGame g : GetGames()) {
+			if (g.getTeamLocal().equals(team))
+				return true;
+			if (g.getTeamVisitor().equals(team))
+				return false;
+		}
+		return false;
 	}
 	
 	/*

@@ -29,6 +29,25 @@ public class Fixture {
 		}
 		return days;
 	}
+	
+	/*
+	 * Devuelve true si el mismo equipo juega de local o visitante
+	 * dos fechas seguidas
+	 */
+	public boolean isLocalOrVisitantTwice() {
+		boolean isLocalAfter = true;
+		boolean isLocalBefore = true;
+		for (Team team : teams) {
+			isLocalBefore = days.get(0).isLocal(team);
+			for (int i = 1; i < days.size(); i++) {
+				isLocalAfter = days.get(i).isLocal(team);
+				if (isLocalBefore == isLocalAfter)
+					return true;
+				isLocalBefore = isLocalAfter;
+			}
+		}
+		return false;
+	}
 
 	public int getCountRepeatedGames() {
 		TournamentDay tournamentDay = null;

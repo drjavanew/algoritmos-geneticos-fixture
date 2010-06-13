@@ -1,7 +1,6 @@
 package main.java.com.football.test;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import main.java.com.football.fixture.SoccerGame;
@@ -16,6 +15,8 @@ public class TestGameEqual {
 		test.testGame();
 		System.out.println();
 		test.tournamentHasGame();
+		System.out.println();
+		test.testLocalGame();
 	}
 	
 	private void testTeam() {
@@ -71,6 +72,29 @@ public class TestGameEqual {
 		
 		System.out.println("true - " + tournamentDay.hasGame(existGame));
 		System.out.println("false - " + tournamentDay.hasGame(notExistGame));
+	}
+	
+	private void testLocalGame() {
+		System.out.println("**********testLocalGame");
+		Team boca = new Team("Boca", true);
+		Team river = new Team("River", true);
+		Team estudiantes = new Team("Estudiantes", true);
+		Team racing = new Team("Racing", true);
+		List<Team> teams =new ArrayList<Team>();
+		teams.add(boca);
+		teams.add(river);
+		teams.add(estudiantes);
+		teams.add(racing);
+		SoccerGame game1 = new SoccerGame(boca, river);
+		SoccerGame game2 = new SoccerGame(estudiantes, racing);
+		List<SoccerGame> games = new ArrayList<SoccerGame>();
+		games.add(game1);
+		games.add(game2);
+		TournamentDay tournamentDay = new TournamentDay(null, null, teams);
+		tournamentDay.setGames(games);
+		
+		System.out.println("false - " + tournamentDay.isLocal(boca));
+		System.out.println("true - " + tournamentDay.isLocal(racing));
 	}
 
 }
