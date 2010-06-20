@@ -8,7 +8,7 @@ public class Fixture {
 	private List<Integer> teamGenesValues;
 	private List<Boolean> localGenesValues;
 	private List<TournamentDay> days;
-
+	
 	public Fixture(List<Team> teams, List<Integer> teamGenesValues,
 			List<Boolean> localGenesValues) {
 		this.teams = teams;
@@ -47,6 +47,23 @@ public class Fixture {
 			}
 		}
 		return false;
+	}
+	
+	
+	public int getCountLocalOrVisitantTwice() {
+		boolean isLocalAfter = true;
+		boolean isLocalBefore = true;
+		int count = 0;
+		for (Team team : teams) {
+			isLocalBefore = days.get(0).isLocal(team);
+			for (int i = 1; i < days.size(); i++) {
+				isLocalAfter = days.get(i).isLocal(team);
+				if (isLocalBefore == isLocalAfter)
+					count++;
+				isLocalBefore = isLocalAfter;
+			}
+		}
+		return count;
 	}
 
 	public int getCountRepeatedGames() {
@@ -92,13 +109,12 @@ public class Fixture {
 	public int GetAptitude() {
 		this.GetDays();
 		int aptitude = 0;
-		//Si tiene partidos repetidos directamente queda descartado y no tienen sentido las demas condiciones
-		if(hasRepeatedGames())
-			aptitude += 84 - getCountRepeatedGames();
-		else{
+		
+		aptitude += 84 - getCountRepeatedGames();
+		
+		if (!hasRepeatedGames()){
 			aptitude += tournamentDayHasMoreThanOneClassic() ? 0 : 5;
 		}
-
 		return aptitude;
 	}
 
