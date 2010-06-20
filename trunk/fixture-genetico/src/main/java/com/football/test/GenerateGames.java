@@ -165,13 +165,13 @@ public class GenerateGames
 			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
 			conf.setSampleChromosome( sampleChromosome );
 			conf.setPreservFittestIndividual(true);
-			CrossoverOperator crossoverOperator = new CrossoverOperator(conf,20,true);
-			MutationOperator mutationOperator = new MutationOperator(conf,25);//1/50 gene mutation rate
+			CrossoverOperator crossoverOperator = new CrossoverOperator(conf,10,true);
+			MutationOperator mutationOperator = new MutationOperator(conf,50);//1/50 gene mutation rate
 			conf.addGeneticOperator(crossoverOperator);
 			conf.addGeneticOperator(mutationOperator);
 			conf.setAlwaysCaculateFitness(true);
 			conf.setMinimumPopSizePercent(90);
-			conf.setPopulationSize(500);
+			conf.setPopulationSize(1000);
 			
 			Genotype population = Genotype.randomInitialGenotype( conf );
 			for( int i = 0; i < MAX_ALLOWED_EVOLUTIONS; i++ )
