@@ -27,4 +27,9 @@ public class Tournament
 		return new Fixture(teams, teamGenesValues, localGenesValues);
 	}
 	
+	public Fixture GetFixture(List<Integer> daysGenesValues)
+	{
+		return new Fixture(teams, daysGenesValues);
+	}
+	
 }
