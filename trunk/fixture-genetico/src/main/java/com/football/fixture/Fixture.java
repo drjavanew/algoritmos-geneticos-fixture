@@ -1,13 +1,17 @@
 package main.java.com.football.fixture;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Fixture {
 	private List<Team> teams;
+	private List<Integer> daysGenesValues;
 	private List<Integer> teamGenesValues;
 	private List<Boolean> localGenesValues;
 	private List<TournamentDay> days;
+	private List<TournamentDay> generatedDays;
+	private List<SoccerGame> auxGames;
 	
 	public Fixture(List<Team> teams, List<Integer> teamGenesValues,
 			List<Boolean> localGenesValues) {
@@ -16,9 +20,78 @@ public class Fixture {
 		this.localGenesValues = localGenesValues;
 		days = new ArrayList<TournamentDay>();
 	}
+	
+	public Fixture(List<Team> teams, List<Integer> dateGenesValues)
+	{
+		this.teams = teams;
+		this.daysGenesValues = dateGenesValues;
+		days = new ArrayList<TournamentDay>();
+		generatedDays = new ArrayList<TournamentDay>();
+		GenerateDays(teams.size()-1);
+		AddDays();
+	}
+	
+	private void GenerateDays(int numberOfSwaps)
+	{
+		for(int i=0; i < numberOfSwaps; i++)
+		{
+			if(numberOfSwaps > 3)
+			{
+				GenerateDays(numberOfSwaps - 2);
+			}
+			else
+			{
+				auxGames=new ArrayList<SoccerGame>();
+				for(int j=0; j< teams.size(); j+=2)
+				{
+					SoccerGame aux = new SoccerGame(new Team(teams.get(j+1)), new Team(teams.get(j)));
+					auxGames.add(aux);
+				}
+				generatedDays.add(new TournamentDay(auxGames));
+			}
+			swap(teams.size() - numberOfSwaps);
+		}
+	}
+	
+	private void swap(int i)
+	{
+		Team aux = new Team(teams.get(i));
+		teams.remove(i);
+		teams.add(aux);
+	}
+	
+	private void AddDays()
+	{
+		List<TournamentDay> copyOfGeneratedDays = new ArrayList<TournamentDay>(generatedDays);
+		for(int i=0;i<daysGenesValues.size();i++)
+		{
+			TournamentDay dayToAdd = copyOfGeneratedDays.get(daysGenesValues.get(i)); 
+			days.add(dayToAdd);
+			List<Integer> subIndexToDelete = new ArrayList<Integer>();
+			for(int j=0;j<copyOfGeneratedDays.size();j++)
+			{
+				//Guardo los subíndices de las fechas que ya tengan algun partido jugado
+				for(SoccerGame game : dayToAdd.GetGames())
+				{
+					if(copyOfGeneratedDays.get(j).hasGame(game))
+					{
+						subIndexToDelete.add(j);
+						break;
+					}
+				}
+			}
+			//Ordeno de mayor a menor los subíndices
+			Collections.sort(subIndexToDelete, Collections.reverseOrder());
+			//Elimino los subíndices de las fechas que ya tengan algun partido jugado
+			for(Integer subIndex : subIndexToDelete)
+				copyOfGeneratedDays.remove((int)subIndex);
+		}
+	}
 
-	public List<TournamentDay> GetDays() {
-		if (days.isEmpty()) {
+	public List<TournamentDay> GetDays() 
+	{
+		if (days.isEmpty()) 
+		{
 			int size = teams.size();
 			for (int i = 0; i < teamGenesValues.size() / (size / 2); i++) {
 				TournamentDay aDay = new TournamentDay(teamGenesValues.subList(

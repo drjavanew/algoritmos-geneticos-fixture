@@ -19,6 +19,10 @@ public class TournamentDay {
 		if(allGamesCombinations.size()==0)
 			AddGames();
 	}
+	public TournamentDay(List<SoccerGame> games)
+	{
+		this.games = games;
+	}
 	private void AddGames()
 	{
 		List<Team> copyOfTeams = new ArrayList<Team>();

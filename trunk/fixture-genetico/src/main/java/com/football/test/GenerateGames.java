@@ -1,8 +1,10 @@
 package main.java.com.football.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import main.java.com.football.fixture.Fixture;
 import main.java.com.football.fixture.SoccerGame;
@@ -43,9 +45,9 @@ public class GenerateGames
 		teams.add(new Team("NO_BOYS", false));
 		teams.add(new Team("LANUS", false));
 		teams.add(new Team("RACING", false));
-		/*teams.add(new Team("VELEZ", false));
+		teams.add(new Team("VELEZ", false));
 		teams.add(new Team("HURACAN", false));
-		teams.add(new Team("TIGRE", false));
+		/*teams.add(new Team("TIGRE", false));
 		teams.add(new Team("GIMNASIA_ESGRIMA_LP", false));
 		teams.add(new Team("RIVER_PLATE", true));
 		teams.add(new Team("COLON", false));
@@ -58,64 +60,48 @@ public class GenerateGames
 		tournament = Tournament.GetInstance(teams);
 	}
 	/*Este main es para probar pasarle valores a los genes y ver como arma el fixture*/
-//	public static void main(String[] args)
-//	{
-//		Init();
-//		List<Integer> gamesGenes = new ArrayList<Integer>();
-//		List<Boolean> localGenes = new ArrayList<Boolean>();
-//		Date now = new Date();
-//		Random rnd = new Random(now.getTime());
-//		for(int i=0;i<teams.size()-1;i++)
-//		{
-//			//Partido 1: debo pasar un valor entre 0 y 190
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(6));
-//			//Partido 2: debo pasar un valor entre 0 y 152
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(0);
-//			/*//Partido 3: debo pasar un valor entre 0 y 119
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(120));
-//			//Partido 4: debo pasar un valor entre 0 y 90
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(91));
-//			//Partido 5: debo pasar un valor entre 0 y 65
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(66));
-//			//Partido 6: debo pasar un valor entre 0 y 44
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(45));
-//			//Partido 7: debo pasar un valor entre 0 y 27
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(28));
-//			//Partido 8: debo pasar un valor entre 0 y 14
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(15));
-//			//Partido 9: debo pasar un valor entre 0 y 5
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(rnd.nextInt(6));
-//			//Partido 10: solo queda un partido posible
-//			localGenes.add(rnd.nextInt(1)==0);
-//			gamesGenes.add(0);*/
-//		}
-//		Fixture fixture = tournament.GetFixture(gamesGenes, localGenes);
-//		List<TournamentDay> days = fixture.GetDays();
-//		Iterator<TournamentDay> it = days.iterator();
-//		int i = 0;
-//		while(it.hasNext())
-//		{
-//			i++;
-//			System.out.println("Fecha " + i + ":");
-//			for(SoccerGame game : it.next().GetGames())
-//			{
-//				Team local = game.getTeamLocal();
-//				Team visitor = game.getTeamVisitor();
-//				System.out.println(local.getName() + " vs " + visitor.getName());
-//			}
-//		}
-//	}
-	
-	
+	/*public static void main(String[] args)
+	{
+		Init();
+		List<Integer> daysGenes = new ArrayList<Integer>();
+		Date now = new Date();
+		Random rnd = new Random(now.getTime());
+		//Hay q calcular cuantas fechas hay q restar (para 10 equipos los valores son esos...
+		daysGenes.add(rnd.nextInt(945));
+		daysGenes.add(rnd.nextInt(544));
+		daysGenes.add(rnd.nextInt(293));
+		daysGenes.add(rnd.nextInt(146));
+		daysGenes.add(rnd.nextInt(66));
+		daysGenes.add(rnd.nextInt(24));
+		daysGenes.add(rnd.nextInt(10));
+		daysGenes.add(rnd.nextInt(2));
+		daysGenes.add(rnd.nextInt(1));
+		/*for(int i=0;i<teams.size()-1;i++)
+		{
+			int max = 1;
+			for(int j=teams.size()-1;j>1; j-=2)
+				max*=j;
+			max-=i;
+			//int repeatedGamesDays = ???;
+			daysGenes.add(rnd.nextInt(max - repeatedGamesDays));
+		}*/
+		/*Fixture fixture = tournament.GetFixture(daysGenes);
+		List<TournamentDay> days = fixture.GetDays();
+		Iterator<TournamentDay> it = days.iterator();
+		int i = 0;
+		while(it.hasNext())
+		{
+			i++;
+			System.out.println("Fecha " + i + ":");
+			for(SoccerGame game : it.next().GetGames())
+			{
+				Team local = game.getTeamLocal();
+				Team visitor = game.getTeamVisitor();
+				System.out.println(local.getName() + " vs " + visitor.getName());
+			}
+		}
+	}*/
+	/*
 	public static void main(String[] args)
 	{
 		try
@@ -161,7 +147,7 @@ public class GenerateGames
 				//Partido 10: solo queda un partido posible
 				sampleGenes[i*20+18] = new IntegerGene(conf, 0, 1);
 				sampleGenes[i*20+19] = new IntegerGene(conf, 0, 0);*/
-			}
+		/*	}
 			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
 			conf.setSampleChromosome( sampleChromosome );
 			conf.setPreservFittestIndividual(true);
@@ -205,6 +191,83 @@ public class GenerateGames
 			
 			System.out.println("tournamentDayHasMoreThanOneClassic - " + fixture.tournamentDayHasMoreThanOneClassic());
 			System.out.println("hasRepeatedGames - " + fixture.hasRepeatedGames());
+		}
+		catch(InvalidConfigurationException ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	}*/
+	public static void main(String[] args)
+	{
+		try
+		{
+			//Inicializo equipos y torneo
+			Init();
+			//Configuración por defecto del JGAP (cruzas, mutaciones, selección, etc)
+			Configuration conf = new DefaultConfiguration();
+			//Clase donde definimos la fcn de aptitud
+			FitnessFunction myFunc = new FixtureFitnessFunction();
+			conf.setFitnessFunction(myFunc);
+			//Cantidad de genes: 9 fechas ==> 1 gen x fecha
+			Gene[] sampleGenes = new Gene[9];
+			//Hay q calcular cuantas fechas hay q restar (para 10 equipos los valores son esos...
+			sampleGenes[0] = new IntegerGene(conf, 0, 944);
+			sampleGenes[1] = new IntegerGene(conf, 0, 543);
+			sampleGenes[2] = new IntegerGene(conf, 0, 292);
+			sampleGenes[3] = new IntegerGene(conf, 0, 145);
+			sampleGenes[4] = new IntegerGene(conf, 0, 65);
+			sampleGenes[5] = new IntegerGene(conf, 0, 23);
+			sampleGenes[6] = new IntegerGene(conf, 0, 9);
+			sampleGenes[7] = new IntegerGene(conf, 0, 1);
+			sampleGenes[8] = new IntegerGene(conf, 0, 0);
+			/*for (int i=0;i<teams.size()-1;i++)
+			{
+				sampleGenes[i] = new IntegerGene(conf, 0, 945);
+			}*/
+			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes );
+			conf.setSampleChromosome( sampleChromosome );
+			conf.setPreservFittestIndividual(true);
+			CrossoverOperator crossoverOperator = new CrossoverOperator(conf,10,true);
+			MutationOperator mutationOperator = new MutationOperator(conf,50);//1/50 gene mutation rate
+			conf.addGeneticOperator(crossoverOperator);
+			conf.addGeneticOperator(mutationOperator);
+			conf.setAlwaysCaculateFitness(true);
+			conf.setMinimumPopSizePercent(90);
+			conf.setPopulationSize(1000);
+			Genotype population = Genotype.randomInitialGenotype( conf );
+			for( int i = 0; i < MAX_ALLOWED_EVOLUTIONS; i++ )
+			{
+			    population.evolve();
+			}
+			IChromosome bestSolutionSoFar = population.getFittestChromosome();
+			List<Integer> DaysGenes = new ArrayList<Integer>();
+			Gene[] genes = bestSolutionSoFar.getGenes();
+			for(int i=0; i<genes.length; i++)
+			{
+				DaysGenes.add((Integer)genes[i].getAllele());
+			}
+			Fixture fixture = tournament.GetFixture(DaysGenes);
+			List<TournamentDay> days = fixture.GetDays();
+			Iterator<TournamentDay> it = days.iterator();
+			int i = 0;
+			while(it.hasNext())
+			{
+				i++;
+				System.out.println("Fecha " + i + ":");
+				for(SoccerGame game : it.next().GetGames())
+				{
+					Team local = game.getTeamLocal();
+					Team visitor = game.getTeamVisitor();
+					System.out.println(local.getName() + " vs " + visitor.getName());
+				}
+			}
+			
+			//System.out.println("tournamentDayHasMoreThanOneClassic - " + fixture.tournamentDayHasMoreThanOneClassic());
+			//System.out.println("hasRepeatedGames - " + fixture.hasRepeatedGames());
 		}
 		catch(InvalidConfigurationException ex)
 		{
