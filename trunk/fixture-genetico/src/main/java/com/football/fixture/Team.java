@@ -1,27 +1,65 @@
 package main.java.com.football.fixture;
 
-public class Team {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Team 
+{
+
+	private static List<String> teams;
+	
 	private String name;
-	private boolean isBigTeam; // puede ser un numero de 1 a 10, siendo 10 para
-								// los equipos mas populares
+	private byte id;
 
-	public Team(String name, boolean isBigTeam) {
+	static
+	{ 
+		teams = new ArrayList<String>();
+		teams.add("ARGENTINOS_JRS");
+		teams.add("ESTUDIANTES_LP");
+		teams.add("GODOY_CRUZ");
+		teams.add("INDEPENDIENTE");
+		teams.add("BANFIELD");
+		teams.add("NO_BOYS");
+		teams.add("LANUS");
+		teams.add("RACING");
+		teams.add("VELEZ");
+		teams.add("HURACAN");
+		teams.add("TIGRE");
+		teams.add("GIMNASIA_ESGRIMA_LP");
+		teams.add("RIVER_PLATE");
+		teams.add("COLON");
+		teams.add("SAN_LORENZO");
+		teams.add("BOCA");
+		teams.add("CHACARITA");
+		teams.add("QUILMES");
+		teams.add("OLIMPO");
+		teams.add("ARSENAL");
+	}
+	
+	public Team(String name) {
 		this.name = name;
-		this.isBigTeam = isBigTeam;
+		for(byte i = 0; i < teams.size(); i++)
+			if(teams.get(i).equalsIgnoreCase(name))
+				id = i;
 	}
 
 	public Team(Team team) {
 		this.name = team.name;
-		this.isBigTeam = team.isBigTeam;
+		this.id = team.id;
 	}
 
+	public Team(byte id) {
+		this.id = id;
+		this.name = teams.get(id);
+	}
+	
 	public String getName() {
 		return name;
 	}
-
-	public boolean IsBigTeam() {
-		return isBigTeam;
+	
+	public byte getId()
+	{
+		return id;
 	}
 
 	@Override

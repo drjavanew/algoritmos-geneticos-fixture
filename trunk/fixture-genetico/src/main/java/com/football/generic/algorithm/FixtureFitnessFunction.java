@@ -29,17 +29,12 @@ public class FixtureFitnessFunction extends FitnessFunction {
 	
 	public double evaluate(IChromosome a_subject)
 	{
-		/*List<Integer> teamGenes = new ArrayList<Integer>();
-		List<Boolean> localGenes = new ArrayList<Boolean>();
+		List<Integer> fixtureCombination = new ArrayList<Integer>();
 		Gene[] genes = a_subject.getGenes();
 		for(int i=0; i<genes.length; i++)
-		{
-			localGenes.add((Integer)genes[i].getAllele()==0);
-			teamGenes.add((Integer)genes[++i].getAllele());
-		}
-		Fixture fixture = Tournament.GetInstance().GetFixture(teamGenes, localGenes);
-		return fixture.GetAptitude();*/
-		return 0;
+			fixtureCombination.add((Integer)genes[i].getAllele());
+		Fixture fixture = Tournament.GetInstance().GetFixture();
+		return fixture.GetAptitude(fixtureCombination);
 	}
 	
 }

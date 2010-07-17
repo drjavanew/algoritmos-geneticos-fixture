@@ -21,8 +21,8 @@ public class TestGameEqual {
 	
 	private void testTeam() {
 		System.out.println("**********testTeam");
-		Team boca = new Team("Boca", true);
-		Team river = new Team("River", true);
+		Team boca = new Team("Boca");
+		Team river = new Team("River");
 		
 		System.out.println("boca = boca - " + boca.equals(boca));
 		System.out.println("boca = river - " + boca.equals(river));
@@ -31,14 +31,14 @@ public class TestGameEqual {
 
 	private void testGame() {
 		System.out.println("**********testGame");
-		SoccerGame game1 = new SoccerGame(new Team("Boca", true), new Team(
-				"River", true));
+		SoccerGame game1 = new SoccerGame(new Team("Boca"), new Team(
+				"River"));
 		
-		SoccerGame game2 = new SoccerGame(new Team("River", true), new Team(
-				"Boca", true));
+		SoccerGame game2 = new SoccerGame(new Team("River"), new Team(
+				"Boca"));
 		
-		SoccerGame game3 = new SoccerGame(new Team("River", true), new Team(
-				"Racing", true));
+		SoccerGame game3 = new SoccerGame(new Team("River"), new Team(
+				"Racing"));
 		
 		System.out.println("game1 = game2 - " + game1.equals(game2));
 		System.out.println("game2 = game3 - " + game2.equals(game3));
@@ -46,10 +46,10 @@ public class TestGameEqual {
 	
 	private void tournamentHasGame() {
 		System.out.println("**********tournamentHasGame");
-		Team boca = new Team("Boca", true);
-		Team river = new Team("River", true);
-		Team estudiantes = new Team("Estudiantes", true);
-		Team racing = new Team("Racing", true);
+		Team boca = new Team("Boca");
+		Team river = new Team("River");
+		Team estudiantes = new Team("Estudiantes");
+		Team racing = new Team("Racing");
 		List<Team> teams =new ArrayList<Team>();
 		teams.add(boca);
 		teams.add(river);
@@ -62,8 +62,7 @@ public class TestGameEqual {
 		games.add(game1);
 		games.add(game2);
 		games.add(game3);
-		TournamentDay tournamentDay = new TournamentDay(null, null, teams);
-		tournamentDay.setGames(games);
+		TournamentDay tournamentDay = new TournamentDay(games);
 		
 		SoccerGame existGame = new SoccerGame(river, racing);
 		
@@ -76,10 +75,10 @@ public class TestGameEqual {
 	
 	private void testLocalGame() {
 		System.out.println("**********testLocalGame");
-		Team boca = new Team("Boca", true);
-		Team river = new Team("River", true);
-		Team estudiantes = new Team("Estudiantes", true);
-		Team racing = new Team("Racing", true);
+		Team boca = new Team("Boca");
+		Team river = new Team("River");
+		Team estudiantes = new Team("Estudiantes");
+		Team racing = new Team("Racing");
 		List<Team> teams =new ArrayList<Team>();
 		teams.add(boca);
 		teams.add(river);
@@ -90,8 +89,7 @@ public class TestGameEqual {
 		List<SoccerGame> games = new ArrayList<SoccerGame>();
 		games.add(game1);
 		games.add(game2);
-		TournamentDay tournamentDay = new TournamentDay(null, null, teams);
-		tournamentDay.setGames(games);
+		TournamentDay tournamentDay = new TournamentDay(games);
 		
 		System.out.println("false - " + tournamentDay.isLocal(boca));
 		System.out.println("true - " + tournamentDay.isLocal(racing));

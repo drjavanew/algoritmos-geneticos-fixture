@@ -12,18 +12,19 @@ public class SoccerGame {
 	private boolean classic;
 	private static List<SoccerGame> classicSoccerGames;
 
-	static {
+	static 
+	{
 		classicSoccerGames = new ArrayList<SoccerGame>();
-		classicSoccerGames.add(new SoccerGame(new Team("INDEPENDIENTE", true), new Team(
-				"RACING", true)));
-		classicSoccerGames.add(new SoccerGame(new Team("ESTUDIANTES_LP", true), new Team(
-				"GIMNASIA_ESGRIMA_LP", true)));
-		classicSoccerGames.add(new SoccerGame(new Team("SAN_LORENZO", true), new Team(
-				"HURACAN", true)));
-		classicSoccerGames.add(new SoccerGame(new Team("BOCA", true), new Team(
-				"RIVER_PLATE", true)));
-		classicSoccerGames.add(new SoccerGame(new Team("BANFIELD", true), new Team(
-				"LANUS", true)));
+		classicSoccerGames.add(new SoccerGame(new Team("INDEPENDIENTE"), new Team(
+				"RACING")));
+		classicSoccerGames.add(new SoccerGame(new Team("ESTUDIANTES_LP"), new Team(
+				"GIMNASIA_ESGRIMA_LP")));
+		classicSoccerGames.add(new SoccerGame(new Team("SAN_LORENZO"), new Team(
+				"HURACAN")));
+		classicSoccerGames.add(new SoccerGame(new Team("BOCA"), new Team(
+				"RIVER_PLATE")));
+		classicSoccerGames.add(new SoccerGame(new Team("BANFIELD"), new Team(
+				"LANUS")));
 	}
 
 	public SoccerGame(Team visitor, Team local) {

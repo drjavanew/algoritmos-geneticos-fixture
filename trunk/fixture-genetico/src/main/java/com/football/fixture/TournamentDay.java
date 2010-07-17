@@ -4,78 +4,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TournamentDay {
-	private List<Integer> gamesGenesValues;
-	private List<Boolean> localGenesValues;
-	private List<Team> teams;
-	private static List<SoccerGame> allGamesCombinations = new ArrayList<SoccerGame>();
+public class TournamentDay 
+{
+	
 	private List<SoccerGame> games = new ArrayList<SoccerGame>();
 	
-	public TournamentDay(List<Integer> genesValues, List<Boolean> localGenesValues, List<Team> teams)
-	{
-		this.gamesGenesValues = genesValues;
-		this.localGenesValues = localGenesValues;
-		this.teams = teams;
-		if(allGamesCombinations.size()==0)
-			AddGames();
-	}
 	public TournamentDay(List<SoccerGame> games)
 	{
 		this.games = games;
 	}
-	private void AddGames()
-	{
-		List<Team> copyOfTeams = new ArrayList<Team>();
-		copyOfTeams.addAll(teams);
-		while(copyOfTeams.size() > 1)
-		{
-			for(int i = 0; i < copyOfTeams.size()-1; i++)
-			{
-				Team local = new Team(copyOfTeams.get(0));
-				Team visitor = new Team(copyOfTeams.get(1));
-				SoccerGame game = new SoccerGame(visitor, local);
-				allGamesCombinations.add(game);
-				Team aTeam = new Team(copyOfTeams.get(1));
-				copyOfTeams.remove(1);
-				copyOfTeams.add(aTeam);
-			}
-			copyOfTeams.remove(0);
-		}
-	}
+	
 	public List<SoccerGame> GetGames()
 	{
-		if(games.isEmpty())
-		{
-			List<SoccerGame> copyOfGames = new ArrayList<SoccerGame>();
-			copyOfGames.addAll(allGamesCombinations);
-			for(int i=0;i<teams.size()/2;i++)
-			{
-				int subIndex = (int)gamesGenesValues.get(i);
-				Boolean isLocal = (Boolean)localGenesValues.get(i);
-				SoccerGame gameToAdd = new SoccerGame(copyOfGames.get(subIndex), isLocal);
-				games.add(gameToAdd);
-				/*Elimino los partidos que involucren a los equipos que ya se jugaron*/
-				subIndex = 0;
-				List<Integer> subIndexToDelete = new ArrayList<Integer>();
-				for(SoccerGame game : copyOfGames)
-				{
-					String local = game.getTeamLocal().getName();
-					String visitor = game.getTeamVisitor().getName();
-					String localToCompare = gameToAdd.getTeamLocal().getName();
-					String visitorToCompare = gameToAdd.getTeamVisitor().getName();
-					if((local.equalsIgnoreCase(localToCompare))||(visitor.equalsIgnoreCase(visitorToCompare))||
-						(local.equalsIgnoreCase(visitorToCompare))||(visitor.equalsIgnoreCase(localToCompare)))
-						subIndexToDelete.add(subIndex);
-					subIndex++;
-				}
-				Collections.sort(subIndexToDelete, Collections.reverseOrder());
-				for(Integer j : subIndexToDelete)
-				{
-					subIndex = (int)j;
-					copyOfGames.remove(subIndex);
-				}
-			}
-		}
 		return games;
 	}
 	
@@ -117,4 +57,28 @@ public class TournamentDay {
 	public void setGames(List<SoccerGame> games) {
 		this.games = games;
 	}
+	
+	public byte[] getRecord()
+	{
+		//20 equipos, 5 bits x equipo, total 100 bits = 12.5 bytes ==> 13 bytes x registro, ahora simplificado para probar...
+		byte[] record = new byte[20];
+		byte gameNumber=0;
+		for(SoccerGame game : games)
+		{
+			record[gameNumber++] = game.getTeamLocal().getId();
+			record[gameNumber++] = game.getTeamVisitor().getId();
+		}
+		return record;
+	}
+	
+	public static TournamentDay getDay(byte[] record)
+	{
+		List<SoccerGame> aux = new ArrayList<SoccerGame>();
+		for(int i = 0; i < record.length; i++)
+		{
+			SoccerGame game = new SoccerGame(new Team(record[i+1]), new Team(record[i]));
+		}
+		return new TournamentDay(aux);
+	}
+	
 }
