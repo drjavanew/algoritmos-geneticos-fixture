@@ -1,10 +1,8 @@
 package main.java.com.football.test;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import main.java.com.football.fixture.Fixture;
 import main.java.com.football.fixture.SoccerGame;
@@ -110,7 +108,7 @@ public class GenerateGames
 				{
 					Team local = game.getTeamLocal();
 					Team visitor = game.getTeamVisitor();
-					System.out.println(local.getName() + " vs " + visitor.getName());
+					System.out.println(String.format("%1$20s   vs   %2$-20s", local.getName(), visitor.getName()));
 				}
 			}
 			
