@@ -1,8 +1,6 @@
 package main.java.com.football.fixture;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class SoccerGame {
@@ -10,7 +8,7 @@ public class SoccerGame {
 	private Team teamVisitor;
 	private Team teamLocal;
 	private boolean classic;
-	private static List<SoccerGame> classicSoccerGames;
+	public static List<SoccerGame> classicSoccerGames;
 
 	static 
 	{

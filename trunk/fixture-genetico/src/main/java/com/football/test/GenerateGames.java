@@ -24,11 +24,12 @@ import org.jgap.impl.CrossoverOperator;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
 import org.jgap.impl.MutationOperator;
+import org.jgap.impl.TournamentSelector;
 
 public class GenerateGames 
 {
 
-	private static int MAX_ALLOWED_EVOLUTIONS = 10;
+	private static int MAX_ALLOWED_EVOLUTIONS = 100;
 	
 	private static List<Team> teams;
 	
@@ -75,14 +76,15 @@ public class GenerateGames
 			Gene[] sampleGenes = new Gene[20];
 			for (int i = 0; i < 20; i++)
 				sampleGenes[i] = new IntegerGene(conf, 0, 19-i);
+			
 			Chromosome sampleChromosome = new Chromosome(conf, sampleGenes);
 			conf.setSampleChromosome( sampleChromosome );
 			conf.setPreservFittestIndividual(true);
-			CrossoverOperator crossoverOperator = new CrossoverOperator(conf,10,true);
-			MutationOperator mutationOperator = new MutationOperator(conf,50);//1/50 gene mutation rate
+			CrossoverOperator crossoverOperator = new CrossoverOperator(conf);
+			MutationOperator mutationOperator = new MutationOperator(conf);//1/50 gene mutation rate
 			conf.addGeneticOperator(crossoverOperator);
 			conf.addGeneticOperator(mutationOperator);
-			conf.setAlwaysCaculateFitness(true);
+			conf.addNaturalSelector( new TournamentSelector(conf, 3, 0.8), true);
 			conf.setMinimumPopSizePercent(90);
 			conf.setPopulationSize(100);
 			Genotype population = Genotype.randomInitialGenotype( conf );
@@ -102,6 +104,7 @@ public class GenerateGames
 			while(it.hasNext())
 			{
 				i++;
+				System.out.println();
 				System.out.println("Fecha " + i + ":");
 				for(SoccerGame game : it.next().GetGames())
 				{
@@ -111,6 +114,7 @@ public class GenerateGames
 				}
 			}
 			
+			System.out.println("Aptitud: " + fixture.GetAptitude(fixtureCombination));
 			System.out.println("tournamentDayHasMoreThanOneClassic - " + fixture.tournamentDayHasMoreThanOneClassic());
 			System.out.println("hasRepeatedGames - " + fixture.hasRepeatedGames());
 		}

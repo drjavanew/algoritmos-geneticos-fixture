@@ -34,7 +34,8 @@ public class FixtureFitnessFunction extends FitnessFunction {
 		for(int i=0; i<genes.length; i++)
 			fixtureCombination.add((Integer)genes[i].getAllele());
 		Fixture fixture = Tournament.GetInstance().GetFixture();
-		return fixture.GetAptitude(fixtureCombination);
+		double apt = fixture.GetAptitude(fixtureCombination);
+		return apt;
 	}
 	
 }

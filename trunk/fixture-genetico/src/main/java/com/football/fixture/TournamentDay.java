@@ -51,6 +51,13 @@ public class TournamentDay
 		return false;
 	}
 	
+	public SoccerGame getGame(Team team){
+		for (SoccerGame soccerGame : games){
+			if (soccerGame.getTeamLocal().equals(team) || soccerGame.getTeamVisitor().equals(team))
+				return soccerGame;
+		}
+		return null;
+	}
 	/*
 	 * Esto se usa para probar el hasGame
 	 */
