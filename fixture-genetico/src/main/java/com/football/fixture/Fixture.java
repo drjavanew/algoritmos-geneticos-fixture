@@ -4,12 +4,26 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.*;
 
-public class Fixture 
-{
+public class Fixture {
 	private List<Team> switchedTeams;
 	private List<Team> teams;
 	private List<TournamentDay> dates;
+	public static final double MAX_BOUND = 10000000.0d;
+	private static List<Team> bigFiveTeams;
 	
+	public static final int MIN_CLASSIC_DAY = 7;
+	public static final int MAX_CLASSIC_DAY = 17;
+	
+	static 
+	{
+		bigFiveTeams = new ArrayList<Team>();
+		bigFiveTeams.add(new Team("INDEPENDIENTE"));
+		bigFiveTeams.add(new Team("RACING"));
+		bigFiveTeams.add(new Team("BOCA"));
+		bigFiveTeams.add(new Team("SAN_LORENZO"));
+		bigFiveTeams.add(new Team("RIVER_PLATE"));
+	}
+
 	public Fixture(List<Team> teams)
 	{
 		this.teams = teams;
@@ -396,12 +410,84 @@ public class Fixture
 		return false;
 	}
 
-	public int GetAptitude(List<Integer> fixtureCombination)
-	{
+	public double GetLocalOrVisitantTwicePenalty(double maxFitness) {
+		double penalty = 0;
+		boolean isLocalAfter = true;
+		boolean isLocalBefore = true;
+
+		for (Team team : teams) {
+			isLocalBefore = this.dates.get(0).isLocal(team);
+			int count = 0;
+			for (int i = 1; i < this.dates.size(); i++) {
+				isLocalAfter = dates.get(i).isLocal(team);
+				if (isLocalBefore == isLocalAfter)
+					count++;
+				isLocalBefore = isLocalAfter;
+			}
+			// Permito que 1 equipo juegue como maximo dos fechas seguidas
+			// de local o visitante
+			if (count - 1 > 0)
+				penalty += (count - 1) * (count - 1) * 50;
+		}
+
+		return Math.min(maxFitness, penalty);
+	}
+	
+	public double GetBigFiveLocalOrVisitantTwicePenalty(double maxFitness) {
+		double penalty = 0;
+		//Penalizacion: Si un equipo juega de local contra uno de los 5 equipos grandes, deberá jugar el próximo
+		//partido contra otro equipo grande como visitante, y asi sucesivamente.
+		ArrayList<Team> copyTeams = new ArrayList<Team>(teams);
+		copyTeams.removeAll(bigFiveTeams);
+		for (Team team : copyTeams){
+			ArrayList<SoccerGame> tmp = new ArrayList<SoccerGame>();
+			
+			for (int i = 0; i < this.dates.size(); i++) {
+				SoccerGame game = dates.get(i).getGame(team);
+				if ( bigFiveTeams.contains(game.getTeamVisitor()) || bigFiveTeams.contains(game.getTeamLocal()))
+					tmp.add(game);
+			}
+			
+			boolean isLocalAfter = true;
+			boolean isLocalBefore = tmp.get(0).getTeamLocal().equals(team);
+			int count = 0;
+			
+			for (int i = 1; i < tmp.size(); i++) {
+				isLocalAfter = tmp.get(i).getTeamLocal().equals(team);
+				if (isLocalBefore == isLocalAfter)
+					count++;
+				isLocalBefore = isLocalAfter;
+			}
+			
+			penalty += count * count * 50;
+		}
+
+		return Math.min(maxFitness, penalty);
+	}
+	
+	public double GetClassicPenalty(double maxFitness) {
+		double penalty = 0;
+		//Los clásicos deben jugarse entre la fecha 7 y 17.
+		ArrayList<SoccerGame> tmp = new ArrayList<SoccerGame>(SoccerGame.classicSoccerGames);
+		for (int i = MIN_CLASSIC_DAY - 1; i < MAX_CLASSIC_DAY; i++ ){
+			for (SoccerGame game : this.dates.get(i).GetGames()){
+				if (tmp.contains(game))
+					tmp.remove(game);
+			}
+		}
+
+		penalty += tmp.size() * tmp.size() * 50;
+		return Math.min(maxFitness, penalty);
+	}
+	
+	public double GetAptitude(List<Integer> fixtureCombination){
 		this.GetDays(fixtureCombination);
-		int aptitude = 0;
+		double aptitude = MAX_BOUND;
 		//Nunca puede haber partidos repetidos x como armo los fixtures...
-		aptitude += tournamentDayHasMoreThanOneClassic() ? 0 : 5;
+		aptitude -= tournamentDayHasMoreThanOneClassic() ? 5 : 0;
+		aptitude -= this.GetLocalOrVisitantTwicePenalty(MAX_BOUND/3);
+		aptitude -= this.GetBigFiveLocalOrVisitantTwicePenalty(MAX_BOUND/3);
+		aptitude -= this.GetClassicPenalty(MAX_BOUND/3);
 		return aptitude;
 	}
 
